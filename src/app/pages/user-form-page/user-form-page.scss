@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  max-width: 560px;
+  width: 100%;
+  margin: var(--spacing-6) auto;
+  padding: 0 var(--spacing-4);
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-4);
+}
+
+.form-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-4);
+  padding-top: var(--spacing-4);
+  border-top: 1px solid var(--gray-200);
+}

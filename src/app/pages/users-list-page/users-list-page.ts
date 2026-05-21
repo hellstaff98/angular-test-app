@@ -49,7 +49,6 @@ export class UsersListPage {
     this.userService
       .getUsers()
       .pipe(
-        tap((users) => console.log(users)),
         finalize(() => {
           this.loading.set(false);
         }),

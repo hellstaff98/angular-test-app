@@ -1,1 +1,77 @@
-<p>user-details-page works!</p>
+<div class="detail-header">
+  <button nz-button (click)="goBack()">
+    <span nz-icon nzType="arrow-left"></span>
+    Назад
+  </button>
+</div>
+
+@if (loading()) {
+  <nz-card>
+    <nz-skeleton [nzAvatar]="true" [nzActive]="true" [nzParagraph]="{ rows: 4 }" />
+  </nz-card>
+} @else if (error()) {
+  <nz-result nzStatus="error" [nzTitle]="error() || 'Ошибка'" />
+} @else if (user(); as user) {
+  <nz-card class="user-card">
+
+    <div class="user-header">
+      <div class="user-avatar">{{ user.name.charAt(0) }}</div>
+      <div>
+        <h2 class="user-name">{{ user.name }}</h2>
+        <span class="user-username">{{ '@' + user.username }}</span>
+      </div>
+    </div>
+
+    <nz-divider />
+
+    <div class="section">
+      <h3 class="section-title">Контакты</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span nz-icon nzType="mail"></span>
+          <span>{{ user.email }}</span>
+        </div>
+        <div class="info-item">
+          <span nz-icon nzType="phone"></span>
+          <span>{{ user.phone }}</span>
+        </div>
+        <div class="info-item">
+          <span nz-icon nzType="global"></span>
+          <span>{{ user.website }}</span>
+        </div>
+      </div>
+    </div>
+
+    <nz-divider />
+
+    <div class="section">
+      <h3 class="section-title">Адрес</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span nz-icon nzType="environment"></span>
+          <span>{{ user.address.street }}, {{ user.address.suite }}</span>
+        </div>
+        <div class="info-item">
+          <span nz-icon nzType="home"></span>
+          <span>{{ user.address.city }}, {{ user.address.zipcode }}</span>
+        </div>
+      </div>
+    </div>
+
+    <nz-divider />
+
+    <div class="section">
+      <h3 class="section-title">Компания</h3>
+      <div class="company-name">{{ user.company.name }}</div>
+      <nz-tag nzColor="blue">{{ user.company.catchPhrase }}</nz-tag>
+    </div>
+
+  </nz-card>
+
+  <div class="actions">
+    <button nz-button nzType="primary" [routerLink]="['/users/form',user.id]">
+      <span nz-icon nzType="edit"></span>
+      Редактировать
+    </button>
+  </div>
+}

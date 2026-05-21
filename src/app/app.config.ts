@@ -16,6 +16,10 @@ import {
   EnvironmentOutline,
   PhoneOutline,
   GlobalOutline,
+  ArrowLeftOutline,
+  MailOutline,
+  HomeOutline,
+  EditOutline,
 } from '@ant-design/icons-angular/icons';
 
 registerLocaleData(ru);
@@ -32,6 +36,10 @@ export const appConfig: ApplicationConfig = {
         EnvironmentOutline,
         PhoneOutline,
         GlobalOutline,
+        ArrowLeftOutline,
+        MailOutline,
+        HomeOutline,
+        EditOutline,
       ]),
     ),
   ],

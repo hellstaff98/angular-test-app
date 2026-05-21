@@ -14,7 +14,15 @@
   margin-bottom: var(--spacing-6);
 }
 
+.users-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+
+}
+
 .users-list {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
   gap: var(--spacing-4);

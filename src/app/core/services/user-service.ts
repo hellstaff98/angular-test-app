@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '@models/user.interface';
-import { catchError, delay, throwError, timeout } from 'rxjs';
+import { catchError, delay, tap, throwError, timeout } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +27,7 @@ export class UserService {
 
   createUser(user: Partial<User>) {
     return this.http.post<Partial<User>>(`${this.baseApiUrl}/users`, user).pipe(
+      tap(() => console.log('Отправлен запрос на создание пользователя: ', user)),
       timeout(5000),
       catchError(() => throwError(() => new Error('Не удалось создать пользователя'))),
     );
@@ -34,6 +35,7 @@ export class UserService {
 
   updateUser(id: number, user: Partial<User>) {
     return this.http.put<Partial<User>>(`${this.baseApiUrl}/users/${id}`, user).pipe(
+      tap(() => console.log('Отправлен запрос на изменение пользователя: ', user)),
       timeout(5000),
       catchError(() => throwError(() => new Error('Не удалось обновить пользователя'))),
     );

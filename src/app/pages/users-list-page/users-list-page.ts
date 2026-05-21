@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { UserService } from '@core/services/user-service';
 import { User } from '@models/user.interface';
@@ -7,26 +7,43 @@ import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzTypographyComponent } from 'ng-zorro-antd/typography';
 import { Router, RouterLink } from '@angular/router';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { finalize, tap } from 'rxjs';
+import { NzIconDirective, NzIconModule } from 'ng-zorro-antd/icon';
+import { finalize } from 'rxjs';
 import { NzSkeletonComponent } from 'ng-zorro-antd/skeleton';
+import {
+  NzInputDirective,
+  NzInputSearchDirective,
+  NzInputWrapperComponent,
+} from 'ng-zorro-antd/input';
+import { FormsModule } from '@angular/forms';
+import { NzPaginationComponent } from 'ng-zorro-antd/pagination';
 
 @Component({
   selector: 'app-users-list-page',
   imports: [
     NzCardModule,
-    NzSpinModule,
     NzResultModule,
     NzTypographyComponent,
     NzButtonComponent,
     NzIconDirective,
     RouterLink,
     NzSkeletonComponent,
+    NzIconModule,
+    NzInputSearchDirective,
+    NzInputDirective,
+    FormsModule,
+    NzInputWrapperComponent,
+    NzPaginationComponent,
   ],
   templateUrl: './users-list-page.html',
   styleUrl: './users-list-page.scss',
 })
 export class UsersListPage {
+  readonly searchQuery = signal('');
+
+  currentPage = signal(1);
+  pageSize = signal(6);
+
   private userService = inject(UserService);
   private router = inject(Router);
 
@@ -40,6 +57,21 @@ export class UsersListPage {
 
   onUserClick(id: number) {
     this.router.navigate(['/users', id]);
+  }
+
+  filteredUsers = computed(() => {
+    const query = this.searchQuery().toLowerCase().trim();
+    if (!query) return this.users();
+    return this.users().filter((u) => u.email.toLowerCase().includes(query));
+  });
+
+  paginatedUsers = computed(() => {
+    const start = (this.currentPage() - 1) * this.pageSize();
+    return this.filteredUsers().slice(start, start + this.pageSize());
+  });
+
+  onPageChange(page: number) {
+    this.currentPage.set(page);
   }
 
   private loadUsers() {

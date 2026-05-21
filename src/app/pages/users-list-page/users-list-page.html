@@ -21,34 +21,45 @@
 } @else if (error()) {
   <nz-result nzStatus="error" [nzTitle]="error() || 'Ошибка'" />
 } @else {
-  <div class="users-list">
-    @for (user of users(); track user.id) {
-      <nz-card class="user-card" [nzLoading]="loading()" (click)="onUserClick(user.id)">
-        <div class="user-meta">
-          <div class="user-avatar">
-            {{ user.name.charAt(0) }}
+  <div class="users-section">
+    <nz-input-search style="border-radius: 30px" nzAllowClear>
+      <input nz-input [(ngModel)]="searchQuery" placeholder="Введите e-mail для поиска" />
+    </nz-input-search>
+    <div class="users-list">
+      @for (user of paginatedUsers(); track user.id) {
+        <nz-card class="user-card" [nzLoading]="loading()" (click)="onUserClick(user.id)">
+          <div class="user-meta">
+            <div class="user-avatar">
+              {{ user.name.charAt(0) }}
+            </div>
+            <div class="user-info">
+              <div class="user-name">{{ user.name }}</div>
+              <div class="user-email">{{ user.email }}</div>
+            </div>
+            <span nz-icon nzType="right" style="color: var(--gray-400)"></span>
           </div>
-          <div class="user-info">
-            <div class="user-name">{{ user.name }}</div>
-            <div class="user-email">{{ user.email }}</div>
+          <div class="user-details">
+            <span>
+              <span nz-icon nzType="environment"></span>
+              {{ user.address.city }}
+            </span>
+            <span>
+              <span nz-icon nzType="phone"></span>
+              {{ user.phone }}
+            </span>
+            <span>
+              <span nz-icon nzType="global"></span>
+              {{ user.website }}
+            </span>
           </div>
-          <span nz-icon nzType="right" style="color: var(--gray-400)"></span>
-        </div>
-        <div class="user-details">
-          <span>
-            <span nz-icon nzType="environment"></span>
-            {{ user.address.city }}
-          </span>
-          <span>
-            <span nz-icon nzType="phone"></span>
-            {{ user.phone }}
-          </span>
-          <span>
-            <span nz-icon nzType="global"></span>
-            {{ user.website }}
-          </span>
-        </div>
-      </nz-card>
-    }
+        </nz-card>
+      }
+    </div>
+    <nz-pagination
+      [nzPageIndex]="currentPage()"
+      [nzTotal]="filteredUsers().length"
+      [nzPageSize]="pageSize()"
+      (nzPageIndexChange)="onPageChange($event)"
+    />
   </div>
 }

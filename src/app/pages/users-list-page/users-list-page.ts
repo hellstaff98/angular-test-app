@@ -17,6 +17,7 @@ import {
 } from 'ng-zorro-antd/input';
 import { FormsModule } from '@angular/forms';
 import { NzPaginationComponent } from 'ng-zorro-antd/pagination';
+import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
 
 @Component({
   selector: 'app-users-list-page',
@@ -34,6 +35,8 @@ import { NzPaginationComponent } from 'ng-zorro-antd/pagination';
     FormsModule,
     NzInputWrapperComponent,
     NzPaginationComponent,
+    NzSelectComponent,
+    NzOptionComponent,
   ],
   templateUrl: './users-list-page.html',
   styleUrl: './users-list-page.scss',
@@ -43,9 +46,10 @@ export class UsersListPage {
 
   currentPage = signal(1);
   pageSize = signal(6);
+  filterField = signal<'name' | 'email'>('email');
+  private router = inject(Router);
 
   private userService = inject(UserService);
-  private router = inject(Router);
 
   users = signal<User[]>([]);
   loading = signal(false);
@@ -62,8 +66,13 @@ export class UsersListPage {
   filteredUsers = computed(() => {
     const query = this.searchQuery().toLowerCase().trim();
     if (!query) return this.users();
-    return this.users().filter((u) => u.email.toLowerCase().includes(query));
+    return this.users().filter((u) => u[this.filterField()].toLowerCase().includes(query));
   });
+
+  onFilterFieldChange(field: 'name' | 'email') {
+    this.filterField.set(field);
+    this.currentPage.set(1);
+  }
 
   paginatedUsers = computed(() => {
     const start = (this.currentPage() - 1) * this.pageSize();

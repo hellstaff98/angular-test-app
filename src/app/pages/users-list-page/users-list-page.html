@@ -22,9 +22,20 @@
   <nz-result nzStatus="error" [nzTitle]="error() || 'Ошибка'" />
 } @else {
   <div class="users-section">
-    <nz-input-search style="border-radius: 30px" nzAllowClear>
-      <input nz-input [(ngModel)]="searchQuery" placeholder="Введите e-mail для поиска" />
-    </nz-input-search>
+    <div class="search-bar">
+      <nz-input-search style="border-radius: 30px" nzAllowClear>
+        <input nz-input [(ngModel)]="searchQuery" placeholder="Найти пользователя" />
+      </nz-input-search>
+      <nz-select
+        [ngModel]="filterField()"
+        (ngModelChange)="onFilterFieldChange($event)"
+        style="width: 120px"
+      >
+        <nz-option nzValue="name" nzLabel="Имя" />
+        <nz-option nzValue="email" nzLabel="Email" />
+      </nz-select>
+    </div>
+
     <div class="users-list">
       @for (user of paginatedUsers(); track user.id) {
         <nz-card class="user-card" [nzLoading]="loading()" (click)="onUserClick(user.id)">

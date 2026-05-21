@@ -21,6 +21,7 @@ import {
   HomeOutline,
   EditOutline,
 } from '@ant-design/icons-angular/icons';
+import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(ru);
 
@@ -29,6 +30,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideNzI18n(ru_RU),
+    provideHttpClient(),
     importProvidersFrom(
       NzIconModule.forRoot([
         PlusOutline,

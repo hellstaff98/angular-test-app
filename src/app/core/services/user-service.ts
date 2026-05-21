@@ -40,4 +40,12 @@ export class UserService {
       catchError(() => throwError(() => new Error('Не удалось обновить пользователя'))),
     );
   }
+
+  deleteUser(id: number) {
+    return this.http.delete(`${this.baseApiUrl}/users/${id}`).pipe(
+      tap(() => console.log('Отправлен запрос на удаление пользователя ', id)),
+      timeout(5000),
+      catchError(() => throwError(() => new Error('Не удалось удалить пользователя'))),
+    );
+  }
 }

@@ -10,6 +10,7 @@ import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { finalize } from 'rxjs';
+import { NzPopconfirmDirective } from 'ng-zorro-antd/popconfirm';
 
 @Component({
   selector: 'app-user-details-page',
@@ -22,6 +23,7 @@ import { finalize } from 'rxjs';
     NzTagModule,
     NzDividerModule,
     RouterLink,
+    NzPopconfirmDirective,
   ],
   templateUrl: './user-details-page.html',
   styleUrl: './user-details-page.scss',
@@ -50,6 +52,13 @@ export class UserDetailsPage {
         next: (user) => this.user.set(user),
         error: () => this.error.set('Не удалось загрузить пользователя'),
       });
+  }
+
+  onDelete() {
+    this.userService.deleteUser(this.user()!.id).subscribe({
+      next: () => this.router.navigate(['/users']),
+      error: () => this.error.set('Не удалось удалить пользователя'),
+    });
   }
 
   goBack() {

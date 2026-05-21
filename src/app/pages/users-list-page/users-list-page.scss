@@ -1,0 +1,98 @@
+:host {
+  min-height: 100%;
+  max-width: 960px;
+  width: 100%;
+  display: block;
+  margin: var(--spacing-6) auto;
+  padding: 0 var(--spacing-4);
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-6);
+}
+
+.users-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.search-bar {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.users-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+  gap: var(--spacing-4);
+}
+
+.user-card {
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .user-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+  }
+
+  .user-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+    color: var(--gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .user-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .user-name {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .user-email {
+    font-size: 13px;
+    color: var(--gray-600);
+  }
+
+  .user-details {
+    display: flex;
+    gap: var(--spacing-4);
+    margin-top: var(--spacing-2);
+    padding-top: var(--spacing-2);
+    border-top: 1px solid #f0f0f0;
+    font-size: 13px;
+    color: var(--gray-800);
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+}

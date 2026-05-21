@@ -1,0 +1,86 @@
+<div class="form-header">
+  <button nz-button (click)="goBack()">
+    <span nz-icon nzType="arrow-left"></span>
+    Назад
+  </button>
+  <h2 class="form-title">{{ isEditMode() ? 'Редактирование' : 'Новый пользователь' }}</h2>
+</div>
+
+@if (loading()) {
+  <nz-card>
+    <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 5 }" />
+  </nz-card>
+} @else if (error()) {
+  <nz-result nzStatus="error" [nzTitle]="error() || 'Ошибка'" />
+} @else {
+  <nz-card>
+    <form nz-form [formGroup]="form" nzLayout="vertical" (ngSubmit)="onSubmit()">
+      <nz-form-item>
+        <nz-form-label nzRequired>Имя</nz-form-label>
+        <nz-form-control [nzErrorTip]="nameTip">
+          <input nz-input formControlName="name" placeholder="Иван Иванов" />
+        </nz-form-control>
+        <ng-template #nameTip let-control>
+          @if (control.hasError('required')) { Введите имя }
+          @else if (control.hasError('minlength')) { Минимум 2 символа }
+        </ng-template>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Логин</nz-form-label>
+        <nz-form-control [nzErrorTip]="usernameTip">
+          <input nz-input formControlName="username" placeholder="username" />
+        </nz-form-control>
+        <ng-template #usernameTip let-control>
+          @if (control.hasError('required')) { Введите имя пользователя }
+          @else if (control.hasError('minlength')) { Минимум 2 символа }
+        </ng-template>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Email</nz-form-label>
+        <nz-form-control [nzErrorTip]="emailTip">
+          <input nz-input formControlName="email" placeholder="user@example.com" />
+        </nz-form-control>
+        <ng-template #emailTip let-control>
+          @if (control.hasError('required')) { Введите email }
+          @else if (control.hasError('email')) { Некорректный формат email }
+        </ng-template>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Телефон</nz-form-label>
+        <nz-form-control [nzErrorTip]="phoneTip">
+          <input nz-input formControlName="phone" placeholder="+7 777 77 77" />
+        </nz-form-control>
+        <ng-template #phoneTip let-control>
+          @if (control.hasError('required')) {
+            Введите телефон
+          } @else if (control.hasError('pattern')) {
+            Некорректный номер
+          }
+        </ng-template>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>Сайт</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="website" placeholder="example.com" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <div class="form-actions">
+        <button
+          nz-button
+          nzType="primary"
+          type="submit"
+          [disabled]="form.invalid"
+          [nzLoading]="submitting()"
+        >
+          {{ isEditMode() ? 'Сохранить' : 'Создать' }}
+        </button>
+      </div>
+
+    </form>
+  </nz-card>
+}

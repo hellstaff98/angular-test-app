@@ -1,15 +1,48 @@
-import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideBrowserGlobalErrorListeners,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { UserOutline , PlusOutline } from "@ant-design/icons-angular/icons"
-
 import { routes } from './app.routes';
-import { ru_RU, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
+
+import { ru_RU, provideNzI18n } from 'ng-zorro-antd/i18n';
 import ru from '@angular/common/locales/ru';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import {
+  PlusOutline,
+  RightOutline,
+  EnvironmentOutline,
+  PhoneOutline,
+  GlobalOutline,
+  ArrowLeftOutline,
+  MailOutline,
+  HomeOutline,
+  EditOutline,
+} from '@ant-design/icons-angular/icons';
+import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(ru);
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideBrowserGlobalErrorListeners(), provideRouter(routes), provideNzI18n(ru_RU), importProvidersFrom(NzIconModule.forRoot([UserOutline, PlusOutline]))],
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideRouter(routes),
+    provideNzI18n(ru_RU),
+    provideHttpClient(),
+    importProvidersFrom(
+      NzIconModule.forRoot([
+        PlusOutline,
+        RightOutline,
+        EnvironmentOutline,
+        PhoneOutline,
+        GlobalOutline,
+        ArrowLeftOutline,
+        MailOutline,
+        HomeOutline,
+        EditOutline,
+      ]),
+    ),
+  ],
 };

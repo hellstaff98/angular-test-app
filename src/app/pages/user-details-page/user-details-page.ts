@@ -28,7 +28,7 @@ import { NzPopconfirmDirective } from 'ng-zorro-antd/popconfirm';
   templateUrl: './user-details-page.html',
   styleUrl: './user-details-page.scss',
 })
-export class UserDetailsPage {
+export class UserDetailsPage implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private userService = inject(UserService);

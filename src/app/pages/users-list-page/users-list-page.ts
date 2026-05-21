@@ -2,7 +2,6 @@ import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { UserService } from '@core/services/user-service';
 import { User } from '@models/user.interface';
-import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzTypographyComponent } from 'ng-zorro-antd/typography';
 import { Router, RouterLink } from '@angular/router';
@@ -41,7 +40,7 @@ import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
   templateUrl: './users-list-page.html',
   styleUrl: './users-list-page.scss',
 })
-export class UsersListPage {
+export class UsersListPage implements OnInit {
   readonly searchQuery = signal('');
 
   currentPage = signal(1);

@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '@models/user.interface';
-import { catchError, delay, tap, throwError, timeout } from 'rxjs';
+import { catchError, tap, throwError, timeout } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

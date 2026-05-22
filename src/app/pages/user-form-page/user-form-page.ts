@@ -35,7 +35,6 @@ import { NzCardComponent } from 'ng-zorro-antd/card';
 export class UserFormPage implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private fb = inject(FormBuilder);
   private userService = inject(UserService);
 
   isEditMode = signal(false);

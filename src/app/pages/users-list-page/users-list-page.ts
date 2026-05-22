@@ -41,14 +41,13 @@ import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
   styleUrl: './users-list-page.scss',
 })
 export class UsersListPage implements OnInit {
+  private router = inject(Router);
+  private userService = inject(UserService);
   readonly searchQuery = signal('');
 
   currentPage = signal(1);
   pageSize = signal(6);
   filterField = signal<'name' | 'email'>('email');
-  private router = inject(Router);
-
-  private userService = inject(UserService);
 
   users = signal<User[]>([]);
   loading = signal(false);
